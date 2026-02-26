@@ -12,6 +12,10 @@ fi
 
 for file in "${haiku_files[@]}"; do
   # Remove one or more trailing commas at the end of each line.
-  sed -E -i '' 's/,+$//' "$file"
+  if [[ "${OSTYPE:-}" == darwin* ]]; then
+    sed -E -i '' 's/,+$//' "$file"
+  else
+    sed -E -i 's/,+$//' "$file"
+  fi
   echo "Formatted: $file"
 done
